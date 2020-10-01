@@ -6,11 +6,11 @@ class Store(Resource):
         store = StoreModel.find_by_name(name)
         if store:
             return store.json()
-        return {"message": f"Store {name} not found"}, 404
+        return {"message": "Store {} not found".format(name)}, 404
 
     def post(self, name):
         if StoreModel.find_by_name(name):
-            return {"message": f"Store {name} already exists"}, 400
+            return {"message": "Store {} already exists".format(name)}, 400
 
         store = StoreModel(name)
         try:
@@ -26,7 +26,7 @@ class Store(Resource):
             if store:
                 store.delete_from_db()
             else:
-                return {"message": f"Store {name} not found"}, 404
+                return {"message": "Store {} not found".format(name)}, 404
         except:
             return {"message": "An error ocurred while deleting the store."}, 500
 

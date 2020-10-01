@@ -25,7 +25,7 @@ class Item(Resource):
 
     def post(self, name):
         if ItemModel.find_by_name(name):
-            return {"message": f"{name} already exists."}, 400
+            return {"message": "{} already exists.".format(name)}, 400
 
         data = Item.parser.parse_args()
 
@@ -43,7 +43,7 @@ class Item(Resource):
             if item:
                 item.delete_from_db()
             else:
-                return {"message": f"Item {name} not found"}, 404
+                return {"message": "Item {} not found".format(name)}, 404
         except:
             return {"message": "An error ocurred while deleting the item."}, 500
 
